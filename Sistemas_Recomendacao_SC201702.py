@@ -7,7 +7,15 @@ Este é um arquivo de script temporário.
 """
 #importação da biblioteca para tratar linguagem natural
 import nltk
+
+#importação da biblioteca para calculo da frequência das palavras 
 from nltk import FreqDist
+
+#importação da biblioteca stopwords
+from nltk.corpus import stopwords
+
+#Carregando as stopwords
+stop_words = set(stopwords.words('english'))
 
 p01 = 'Many methods, models and standards for software process improvement have been developed. However, despite the efforts, they still come up against difficulties in their deployment and the processes are not institutionalized. There is a set of factors that influence the successful deployment of new or modified processes. In this paper we describe the methodology and results from a systematic review of critical success factors in software process improvement and deployment. A total of 28 primary studies were analyzed as a result of the systematic review. Some of the top factors for process improvement and process deployment initiatives are: commitment, alignment with the business strategy and goals, training, communication, resources, skills, improvement management and staff involvement. The obtained results show that is important to take into account organizational, technical and people issues in order to achieve success in improvement initiatives.' 
 
@@ -123,11 +131,14 @@ p55 = 'Even though a large amount of content is shared on Facebook, what makes F
 palavrasp01 = nltk.word_tokenize(p01)
 
 #excluir as palavras com tamanho = 1
- palavrasp01 = [palavra for palavra in palavrasp01 if len(palavra) > 1] 
+palavrasp01 = [palavra for palavra in palavrasp01 if len(palavra) > 1]
 
-#Total de Palavras em p01
-qtdp01 = len(palavrasp01)  ou
-qtdp01 = len(nltk.word_tokenize(p01))
+#Limpando o texto a partir das stopwords
+palavrasp01 = [palavra for palavra in palavrasp01 if palavra.lower() not in stop_words] 
+
+#Total de Palavras em p01 
+#qtdp01 = len(nltk.word_tokenize(p01))  or
+qtdp01 = len(palavrasp01)  
 
 #Obter a frequencia das palavras
 frequenciap01  = FreqDist(palavrasp01)
