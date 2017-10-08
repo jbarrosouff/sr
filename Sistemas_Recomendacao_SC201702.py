@@ -5,6 +5,7 @@ Turma 2017-02
 
 Este é um arquivo de script temporário.
 """
+#importação da biblioteca para tratar linguagem natural
 import nltk
 
 p01 = 'Many methods, models and standards for software process improvement have been developed. However, despite the efforts, they still come up against difficulties in their deployment and the processes are not institutionalized. There is a set of factors that influence the successful deployment of new or modified processes. In this paper we describe the methodology and results from a systematic review of critical success factors in software process improvement and deployment. A total of 28 primary studies were analyzed as a result of the systematic review. Some of the top factors for process improvement and process deployment initiatives are: commitment, alignment with the business strategy and goals, training, communication, resources, skills, improvement management and staff involvement. The obtained results show that is important to take into account organizational, technical and people issues in order to achieve success in improvement initiatives.' 
@@ -35,7 +36,7 @@ p13 = 'Currently, consumers are not passive, highly connected and linked to busi
 
 p14 = 'The article describes and analyzes three social bookmarking tools and two reference management systems aimed at the academic environment in its objective and subjective aspects. It highlights the metadata marking scheme as support for infometric studies and discusses the motivational conditions for the use of such systems, as well as potential discursive zoning resulting from the analysis of descriptor tags. It raises speculations about other relationships that can be found in the formal structures of these tools, especially those concerning the function of language and the potential composition of discursive communities in virtual collaborative environments.' 
 
-p15 = 'This article addresses the management of product information as one of the critical elements in the development of relationships in the supply chain, particularly those associated with e-business, collaborative processes and chain monitoring. The management of product information is a very recent issue and currently only a few companies have systems of this nature. Focusing on the return of information technology investments by enterprises and the development of integrated support capabilities by corporate solution providers are increasing attention to the issue. Due to this context, the article adopts a methodology of conceptual approach based on literature review and authors' proposals. The article discusses how companies can effectively develop their product information management skills and suggests models relevant to e-business, collaborative processes, and supply chain monitoring.'
+p15 = 'This article addresses the management of product information as one of the critical elements in the development of relationships in the supply chain, particularly those associated with e-business, collaborative processes and chain monitoring. The management of product information is a very recent issue and currently only a few companies have systems of this nature. Focusing on the return of information technology investments by enterprises and the development of integrated support capabilities by corporate solution providers are increasing attention to the issue. Due to this context, the article adopts a methodology of conceptual approach based on literature review and authors proposals. The article discusses how companies can effectively develop their product information management skills and suggests models relevant to e-business, collaborative processes, and supply chain monitoring.'
 
 p16 = 'Social media treats all users the same: trusted friend or total stranger, with little or nothing in between. In reality, relationships fall everywhere along this spectrum, a topic social science has investigated for decades under the theme of tie strength. Our work bridges this gap between theory and practice. In this paper, we present a predictive model that maps social media data to tie strength. The model builds on a dataset of over 2,000 social media ties and performs quite well, distinguishing between strong and weak ties with over 85% accuracy. We complement these quantitative findings with interviews that unpack the relationships we could not predict. The paper concludes by illustrating how modeling tie strength can improve social media design elements, including privacy controls, message routing, friend introductions and information prioritization.'
 
@@ -113,4 +114,21 @@ p53 = 'This article proposes a new technique for Privacy Preserving Collaborativ
 
 p54 = 'In this paper, we study the problem of retrieving a ranked list of top-N items to a target user in recommender systems. We first develop a novel preference model by distinguish- ing different rating patterns of users, and then apply it to existing collaborative filtering ( CF ) algorithms. Our preference model, which is inspired by a voting method, is well- suited for representing qualitative user preferences. In particular, it can be easily imple- mented with less than 100 lines of codes on top of existing CF algorithms such as user- based, item-based, and matrix-factorization-based algorithms. When our preference model is combined to three kinds of CF algorithms, experimental results demonstrate that the preference model can improve the accuracy of all existing CF algorithms such as ATOP and NDCG@25 by 3–24% and 6–98%, respectively.'
 
-p55 = 'Even though a large amount of content is shared on Facebook, what makes Facebook users share content has not been thoroughly addressed in previous studies. Rather than treating Facebook as just another online social media, this study focused on Facebook users' psychological incentives for content sharing and examined how users' social capital focus and content types influenced the effect of incentives. Using both qualitative (focus group interview) and quantitative (online survey) methods, we obtained several findings. Both self-interest and communal incentive could drive Facebook users' content-sharing intention, but their effects depended on the content types. Further, the effects of self-interest incentives were found only among the users who focus on their close friends (bonding-focus), but not among those who focus on the distant friends (bridging-focus). Brand marketers can utilize these results to post content on Facebook effectively.'
+p55 = 'Even though a large amount of content is shared on Facebook, what makes Facebook users share content has not been thoroughly addressed in previous studies. Rather than treating Facebook as just another online social media, this study focused on Facebook psychological of users incentives for content sharing and examined how users social capital focus and content types influenced the effect of incentives. Using both qualitative (focus group interview) and quantitative (online survey) methods, we obtained several findings. Both self-interest and communal incentive could drive Facebook users content-sharing intention, but their effects depended on the content types. Further, the effects of self-interest incentives were found only among the users who focus on their close friends (bonding-focus), but not among those who focus on the distant friends (bridging-focus). Brand marketers can utilize these results to post content on Facebook effectively.'
+
+'''
+Tokeninzação
+Extrai todas as palavras do texto
+palavrasp01 = nltk.word_tokenize(p01)
+
+Total de Palavras em p01
+qtdp01 = len(palavrasp01)  ou
+qtdp01 = len(nltk.word_tokenize(p01))
+
+
+
+
+
+
+
+
