@@ -7,6 +7,7 @@ Este é um arquivo de script temporário.
 """
 #importação da biblioteca para tratar linguagem natural
 import nltk
+from nltk import FreqDist
 
 p01 = 'Many methods, models and standards for software process improvement have been developed. However, despite the efforts, they still come up against difficulties in their deployment and the processes are not institutionalized. There is a set of factors that influence the successful deployment of new or modified processes. In this paper we describe the methodology and results from a systematic review of critical success factors in software process improvement and deployment. A total of 28 primary studies were analyzed as a result of the systematic review. Some of the top factors for process improvement and process deployment initiatives are: commitment, alignment with the business strategy and goals, training, communication, resources, skills, improvement management and staff involvement. The obtained results show that is important to take into account organizational, technical and people issues in order to achieve success in improvement initiatives.' 
 
@@ -116,15 +117,26 @@ p54 = 'In this paper, we study the problem of retrieving a ranked list of top-N 
 
 p55 = 'Even though a large amount of content is shared on Facebook, what makes Facebook users share content has not been thoroughly addressed in previous studies. Rather than treating Facebook as just another online social media, this study focused on Facebook psychological of users incentives for content sharing and examined how users social capital focus and content types influenced the effect of incentives. Using both qualitative (focus group interview) and quantitative (online survey) methods, we obtained several findings. Both self-interest and communal incentive could drive Facebook users content-sharing intention, but their effects depended on the content types. Further, the effects of self-interest incentives were found only among the users who focus on their close friends (bonding-focus), but not among those who focus on the distant friends (bridging-focus). Brand marketers can utilize these results to post content on Facebook effectively.'
 
-'''
-Tokeninzação
-Extrai todas as palavras do texto
+
+#Tokeninzação
+#Extrai todas as palavras do texto
 palavrasp01 = nltk.word_tokenize(p01)
 
-Total de Palavras em p01
+#excluir as palavras com tamanho = 1
+ palavrasp01 = [palavra for palavra in palavrasp01 if len(palavra) > 1] 
+
+#Total de Palavras em p01
 qtdp01 = len(palavrasp01)  ou
 qtdp01 = len(nltk.word_tokenize(p01))
 
+#Obter a frequencia das palavras
+frequenciap01  = FreqDist(palavrasp01)
+
+#obter a frequência das 20 mais frequentes - contrução da feature
+frequenciap01.most_common(20)
+
+#Geração do Grafico das frequência
+frequenciap01.plot(20)
 
 
 
