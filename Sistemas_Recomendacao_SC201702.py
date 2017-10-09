@@ -83,7 +83,9 @@ p32 = 'Lean as a business strategy is used to improve quality and service, elimi
 
 p33 = 'We present the first formal study of crowdworkers who have disabilities via in-depth open-ended interviews of 17 people (disabled crowdworkers and job coaches for people with disabilities) and a survey of 631 adults with disabilities. Our findings establish that people with a variety of disabilities currently participate in the crowd labor marketplace, despite challenges such as crowdsourcing workflow designs that inadvertently prohibit participation by, and may negatively affect the worker reputations of, people with disabilities. Despite such challenges, we find that crowdwork potentially offers different opportunities for people with disabilities relative to the normative office environment, such as job flexibility and lack of a need to rely on public transit. We close by identifying several ways in which crowd labor platform operators and/or individual task requestors could improve the accessibility of this increasingly important form of employment.'
 
-p34 = 'There has been an increase in recent years in the number of in-depth case studies which focus on human actions and interpretations surrounding the development and use of computer-based information systems (IS). This paper addresses philosophical and theoretical issues concerning the nature of such interpretive case studies, and methodological issues on the conduct and reporting of this type of research. The paper aims to provide a useful reference point for researchers who wish to work in the interpretive tradition, and more generally to encourage careful work on the conceptualisation and execution of case studies in the information systems field.'
+p34 = 'The author reflects on the state of accessibility in the field of computer science. He states that creating computer programs that are can be adapted and accessed by a diverse demographic is necessary due to the population of people who may have vision, hearing, or physical limitations. Other topics covered include modifications to user interfaces, computer-based services and applications, and general-purpose tools.'
+
+p35 = 'There has been an increase in recent years in the number of in-depth case studies which focus on human actions and interpretations surrounding the development and use of computer-based information systems (IS). This paper addresses philosophical and theoretical issues concerning the nature of such interpretive case studies, and methodological issues on the conduct and reporting of this type of research. The paper aims to provide a useful reference point for researchers who wish to work in the interpretive tradition, and more generally to encourage careful work on the conceptualisation and execution of case studies in the information systems field.'
 
 p36 = 'Valid measurement scales for predicting user acceptance of computers are in short supply. Most subjective measures used in practice are unvalidated, and their relationship to system usage is unknown. The present research develops and validates new scales for two specific variables, perceived usefulness and perceived ease of use, which are hypothesized to be fundamental determinants of user acceptance. Definitions for these two variables were used to develop scale items that were pretested for content validity and then tested for reliability and construct validity in two studies involving a total of 152 users and four application programs. The measures were refined and stream-lined, resulting in two six-item scales with reliabilities of.98 for usefulness and.94 for ease of use. The scales exhibited high convergent, discriminant, and factorial validity. Perceived usefulness was significantly correlated with both self-reported current usage (r=.63, Study 1) and self-predicted future usage (r=.85, Study 2). Perceived ease of use was also significantly correlated with current usage (r=.45, Study 1) and future usage (r=.59, Study 2). In both studies, usefulness had a significantly greater correlation with usage behavior than did ease of use. Regression analyses suggest that perceived ease of use may actually be a causal antecedent to perceived usefulness, as opposed to a parallel, direct determinant of system usage. Implications are drawn for future research on user acceptance.'
 
@@ -125,6 +127,62 @@ p54 = 'In this paper, we study the problem of retrieving a ranked list of top-N 
 
 p55 = 'Even though a large amount of content is shared on Facebook, what makes Facebook users share content has not been thoroughly addressed in previous studies. Rather than treating Facebook as just another online social media, this study focused on Facebook psychological of users incentives for content sharing and examined how users social capital focus and content types influenced the effect of incentives. Using both qualitative (focus group interview) and quantitative (online survey) methods, we obtained several findings. Both self-interest and communal incentive could drive Facebook users content-sharing intention, but their effects depended on the content types. Further, the effects of self-interest incentives were found only among the users who focus on their close friends (bonding-focus), but not among those who focus on the distant friends (bridging-focus). Brand marketers can utilize these results to post content on Facebook effectively.'
 
+listaResumos = []
+listaResumos.append(p01)
+listaResumos.append(p02)
+listaResumos.append(p03)
+listaResumos.append(p04)
+listaResumos.append(p05)
+listaResumos.append(p06)
+listaResumos.append(p07)
+listaResumos.append(p08)
+listaResumos.append(p09)
+listaResumos.append(p10)
+listaResumos.append(p11)
+listaResumos.append(p12)
+listaResumos.append(p13)
+listaResumos.append(p14)
+listaResumos.append(p15)
+listaResumos.append(p16)
+listaResumos.append(p17)
+listaResumos.append(p18)
+listaResumos.append(p19)
+listaResumos.append(p20)
+listaResumos.append(p21)
+listaResumos.append(p22)
+listaResumos.append(p23)
+listaResumos.append(p24)
+listaResumos.append(p25)
+listaResumos.append(p26)
+listaResumos.append(p27)
+listaResumos.append(p28)
+listaResumos.append(p29)
+listaResumos.append(p30)
+listaResumos.append(p31)
+listaResumos.append(p32)
+listaResumos.append(p33)
+listaResumos.append(p34)
+listaResumos.append(p35)
+listaResumos.append(p36)
+listaResumos.append(p37)
+listaResumos.append(p38)
+listaResumos.append(p39)
+listaResumos.append(p40)
+listaResumos.append(p41)
+listaResumos.append(p42)
+listaResumos.append(p43)
+listaResumos.append(p44)
+listaResumos.append(p45)
+listaResumos.append(p46)
+listaResumos.append(p47)
+listaResumos.append(p48)
+listaResumos.append(p49)
+listaResumos.append(p50)
+listaResumos.append(p51)
+listaResumos.append(p52)
+listaResumos.append(p53)
+listaResumos.append(p54)
+listaResumos.append(p55)
 
 #Tokeninzação
 #Extrai todas as palavras do texto
@@ -149,8 +207,22 @@ frequenciap01.most_common(20)
 #Geração do Grafico das frequência
 frequenciap01.plot(20)
 
+#quantidade de vezes que a palavra mais frequente aparece no resumo p01
+qt = palavrasp01.count(frequenciap01.most_common(1)[0][0])
 
+listaFrequencia = []    
 
+i = 0
+while i < len(listaResumos):
+    palavras = nltk.word_tokenize(listaResumos[i])
+    palavras = [palavra for palavra in palavras if len(palavra) > 1]
+    palavras = [palavra for palavra in palavras if palavra.lower() not in stop_words]
+    frequencia  = FreqDist(palavras)
+    qt = palavras.count(frequencia.most_common(1)[0][0])
+    listaFrequencia.append(qt)
+    listaResumos[i] = palavras
+    i = i + 1
+    
 
 
 
