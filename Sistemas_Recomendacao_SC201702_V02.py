@@ -240,5 +240,6 @@ for item in listaResumos:
     resultado.append(linha)
     i = i + 1 
     
-    
+#Grafico da frequencia das features
+frequencia.plot(20)    
 
