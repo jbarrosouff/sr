@@ -8,13 +8,13 @@ Este é um arquivo de script temporário.
 #importação da biblioteca para tratar linguagem natural
 import nltk
 
-#importação da biblioteca para calculo da frequência das palavras 
+#importação da biblioteca para cálculo da frequência das palavras 
 from nltk import FreqDist
 
 #importação da biblioteca stopwords
 from nltk.corpus import stopwords
 
-#importação da bliblioteca  WordNetLemmatizer para extrair
+#importação da biblioteca  WordNetLemmatizer para extrair
 #a forma não flexionada (canônica ou lemma) de cada palavra
 from nltk.stem import WordNetLemmatizer
 wordnet_lemmatizer = WordNetLemmatizer()
@@ -23,6 +23,7 @@ lem = WordNetLemmatizer()
 #Carregando as stopwords
 stop_words = set(stopwords.words('english'))
 
+#instanciando os resumos/produtos de cada artigo
 p01 = 'Many methods, models and standards for software process improvement have been developed. However, despite the efforts, they still come up against difficulties in their deployment and the processes are not institutionalized. There is a set of factors that influence the successful deployment of new or modified processes. In this paper we describe the methodology and results from a systematic review of critical success factors in software process improvement and deployment. A total of 28 primary studies were analyzed as a result of the systematic review. Some of the top factors for process improvement and process deployment initiatives are: commitment, alignment with the business strategy and goals, training, communication, resources, skills, improvement management and staff involvement. The obtained results show that is important to take into account organizational, technical and people issues in order to achieve success in improvement initiatives.' 
 
 p02 = 'Large companies like Ericsson increasingly often adopt the principles of Agile and Lean software development and develop large software products in iterative manner – in order to quickly respond to customer needs. In this paper we present the main indicator which is sufficient for a mature software development organization in order to predict the time in weeks to release the product. In our research project we collaborated closely with a large Agile+Lean software development project at Ericsson in Sweden. This large and mature software development project and organization has found this main indicator – release readiness – to be so important that it was used as a key performance indicator and is used in controlling the development of the product and improving organizational performance. The indicator was developed and validated in an action research project at one of the units of Ericsson AB in Sweden in one of its largest projects.'
@@ -133,7 +134,7 @@ p54 = 'In this paper, we study the problem of retrieving a ranked list of top-N 
 
 p55 = 'Even though a large amount of content is shared on Facebook, what makes Facebook users share content has not been thoroughly addressed in previous studies. Rather than treating Facebook as just another online social media, this study focused on Facebook psychological of users incentives for content sharing and examined how users social capital focus and content types influenced the effect of incentives. Using both qualitative (focus group interview) and quantitative (online survey) methods, we obtained several findings. Both self-interest and communal incentive could drive Facebook users content-sharing intention, but their effects depended on the content types. Further, the effects of self-interest incentives were found only among the users who focus on their close friends (bonding-focus), but not among those who focus on the distant friends (bridging-focus). Brand marketers can utilize these results to post content on Facebook effectively.'
 
-#inclusão dos resumo numa lista
+#inclusão dos resumos/produtos numa lista
 listaResumos = []
 listaResumos.append(p01)
 listaResumos.append(p02)
@@ -191,21 +192,21 @@ listaResumos.append(p53)
 listaResumos.append(p54)
 listaResumos.append(p55)
 
-
+#pré-processamento das palavras de todo o conjunto dos resumos
 listaResumosMesclada = []
 i = 0
 while i < len(listaResumos):
     #Tokeninzação
-    #Extrai todas as palavras do texto
+    #Extração todas as palavras do resumo
     palavras = nltk.word_tokenize(listaResumos[i])
     
-    #excluisão as palavras com tamanho = 1
+    #exclusão das palavras com tamanho = 1
     palavras = [palavra for palavra in palavras if len(palavra) > 1]
     
-    #Limpando o texto a partir das stopwords e aplicando a lemmatização
+    #Limpeza do texto a partir das stopwords e aplicando a lemmatização
     palavras = [lem.lemmatize(palavra) for palavra in palavras if palavra.lower() not in stop_words]
     
-    #incluindo as lista de palavras tratadas em uma nova lista de resumos
+    #Atualuzação da lista de palavras já tratadas 
     listaResumos[i] = palavras
     
     #mesclagem para uma lista a afim de obter as features
@@ -215,16 +216,18 @@ while i < len(listaResumos):
 #calculo da frequencia: foram selecionadas 20 palavras mais frequentes no texto
 frequencia  = FreqDist(listaResumosMesclada)
 
-#criação obtenção das features e ordenação
+#Obtenção das features e ordenação
 features = [palavra[0] for palavra in frequencia.most_common(20)]
 features_ordenadas = sorted(features)
 
-#criação da Matriz
-i = 1
+#Criação da Matriz
 resultado = []
+resultado.append(features_ordenadas)
+i = 1
 #loop dos resumos
 for item in listaResumos:
     linha = []
+    linha.append(str(i))
     #loop das features
     for feature in features_ordenadas:
         #verifica se a feature se encontra no conjunto de palavras 
@@ -235,7 +238,7 @@ for item in listaResumos:
         linha.append(a)
         #atualiza a matriz
     resultado.append(linha)
-    i=i+1 
+    i = i + 1 
     
     
 
