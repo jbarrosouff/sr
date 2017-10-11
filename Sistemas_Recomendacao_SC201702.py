@@ -14,6 +14,13 @@ from nltk import FreqDist
 #importação da biblioteca stopwords
 from nltk.corpus import stopwords
 
+#importação da bliblioteca  WordNetLemmatizer para extrair
+#a forma não flexionada (canônica ou lemma) de cada palavra
+from nltk.stem import WordNetLemmatizer
+wordnet_lemmatizer = WordNetLemmatizer()
+lem = WordNetLemmatizer()
+
+
 #Carregando as stopwords
 stop_words = set(stopwords.words('english'))
 
@@ -212,6 +219,7 @@ qt = palavrasp01.count(frequenciap01.most_common(1)[0][0])
 
 listaFrequencia = []    
 
+
 i = 0
 while i < len(listaResumos):
     palavras = nltk.word_tokenize(listaResumos[i])
@@ -225,5 +233,20 @@ while i < len(listaResumos):
     
 
 
+listaResumosMesclada = []
+i = 0
+while i < len(listaResumos):
+    palavras = nltk.word_tokenize(listaResumos[i])
+    palavras = [palavra for palavra in palavras if len(palavra) > 1]
+    palavras = [lem.lemmatize(palavra) for palavra in palavras if palavra.lower() not in stop_words]
+    listaResumos[i] = palavras
+    listaResumosMesclada.extend(palavras)
+    i = i + 1
 
+frequencia  = FreqDist(listaResumosMesclada)
+features = [palavra[0] for palavra in frequencia.most_common(20)]
+features_ordenadas = sorted(features)
 
+#teste = [palavra[0] for palavra in frequencia.most_common(20)]
+
+#nltk.download()
