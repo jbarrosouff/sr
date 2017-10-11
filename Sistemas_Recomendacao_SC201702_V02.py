@@ -20,7 +20,6 @@ from nltk.stem import WordNetLemmatizer
 wordnet_lemmatizer = WordNetLemmatizer()
 lem = WordNetLemmatizer()
 
-
 #Carregando as stopwords
 stop_words = set(stopwords.words('english'))
 
@@ -134,6 +133,7 @@ p54 = 'In this paper, we study the problem of retrieving a ranked list of top-N 
 
 p55 = 'Even though a large amount of content is shared on Facebook, what makes Facebook users share content has not been thoroughly addressed in previous studies. Rather than treating Facebook as just another online social media, this study focused on Facebook psychological of users incentives for content sharing and examined how users social capital focus and content types influenced the effect of incentives. Using both qualitative (focus group interview) and quantitative (online survey) methods, we obtained several findings. Both self-interest and communal incentive could drive Facebook users content-sharing intention, but their effects depended on the content types. Further, the effects of self-interest incentives were found only among the users who focus on their close friends (bonding-focus), but not among those who focus on the distant friends (bridging-focus). Brand marketers can utilize these results to post content on Facebook effectively.'
 
+#inclusão dos resumo numa lista
 listaResumos = []
 listaResumos.append(p01)
 listaResumos.append(p02)
@@ -191,62 +191,51 @@ listaResumos.append(p53)
 listaResumos.append(p54)
 listaResumos.append(p55)
 
-#Tokeninzação
-#Extrai todas as palavras do texto
-palavrasp01 = nltk.word_tokenize(p01)
-
-#excluir as palavras com tamanho = 1
-palavrasp01 = [palavra for palavra in palavrasp01 if len(palavra) > 1]
-
-#Limpando o texto a partir das stopwords
-palavrasp01 = [palavra for palavra in palavrasp01 if palavra.lower() not in stop_words] 
-
-#Total de Palavras em p01 
-#qtdp01 = len(nltk.word_tokenize(p01))  or
-qtdp01 = len(palavrasp01)  
-
-#Obter a frequencia das palavras
-frequenciap01  = FreqDist(palavrasp01)
-
-#obter a frequência das 20 mais frequentes - contrução da feature
-frequenciap01.most_common(20)
-
-#Geração do Grafico das frequência
-frequenciap01.plot(20)
-
-#quantidade de vezes que a palavra mais frequente aparece no resumo p01
-qt = palavrasp01.count(frequenciap01.most_common(1)[0][0])
-
-listaFrequencia = []    
-
-
-i = 0
-while i < len(listaResumos):
-    palavras = nltk.word_tokenize(listaResumos[i])
-    palavras = [palavra for palavra in palavras if len(palavra) > 1]
-    palavras = [palavra for palavra in palavras if palavra.lower() not in stop_words]
-    frequencia  = FreqDist(palavras)
-    qt = palavras.count(frequencia.most_common(1)[0][0])
-    listaFrequencia.append(qt)
-    listaResumos[i] = palavras
-    i = i + 1
-    
-
 
 listaResumosMesclada = []
 i = 0
 while i < len(listaResumos):
+    #Tokeninzação
+    #Extrai todas as palavras do texto
     palavras = nltk.word_tokenize(listaResumos[i])
+    
+    #excluisão as palavras com tamanho = 1
     palavras = [palavra for palavra in palavras if len(palavra) > 1]
+    
+    #Limpando o texto a partir das stopwords e aplicando a lemmatização
     palavras = [lem.lemmatize(palavra) for palavra in palavras if palavra.lower() not in stop_words]
+    
+    #incluindo as lista de palavras tratadas em uma nova lista de resumos
     listaResumos[i] = palavras
+    
+    #mesclagem para uma lista a afim de obter as features
     listaResumosMesclada.extend(palavras)
     i = i + 1
 
+#calculo da frequencia: foram selecionadas 20 palavras mais frequentes no texto
 frequencia  = FreqDist(listaResumosMesclada)
+
+#criação obtenção das features e ordenação
 features = [palavra[0] for palavra in frequencia.most_common(20)]
 features_ordenadas = sorted(features)
 
-#teste = [palavra[0] for palavra in frequencia.most_common(20)]
+#criação da Matriz
+i = 1
+resultado = []
+#loop dos resumos
+for item in listaResumos:
+    linha = []
+    #loop das features
+    for feature in features_ordenadas:
+        #verifica se a feature se encontra no conjunto de palavras 
+        if feature in item:
+            a = ' '.join('1')
+        else: a = ' '.join('0') 
+        #insere a linha com os matchs
+        linha.append(a)
+        #atualiza a matriz
+    resultado.append(linha)
+    i=i+1 
+    
+    
 
-#nltk.download()
