@@ -206,7 +206,7 @@ while i < len(listaResumos):
     #Limpeza do texto a partir das stopwords e aplicando a lemmatização
     palavras = [lem.lemmatize(palavra) for palavra in palavras if palavra.lower() not in stop_words]
     
-    #Atualuzação da lista de palavras já tratadas 
+    #Atualização da lista de palavras já tratadas 
     listaResumos[i] = palavras
     
     #mesclagem para uma lista a afim de obter as features
