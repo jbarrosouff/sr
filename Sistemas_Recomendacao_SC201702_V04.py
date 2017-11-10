@@ -335,10 +335,10 @@ for item in listaResumos:
 #Seleciona o usuário
 usuarioCorrente = jose
 
-#calcula mediea 
+#calcula da media das avaliações do usuário corrente 
 valorMediaAvaliacao = media_avaliacao(usuarioCorrente)
 
-#normalização do vertor de notas do usuário corrente com a media - Frequência Relativa
+#normalização dos pesos usando a classificação média do usuário
 vetorNormalizado = []
 vetorItemNaoAvaliados = []
 for i in range(len(usuarioCorrente)):
@@ -347,7 +347,7 @@ for i in range(len(usuarioCorrente)):
         vetorItemNaoAvaliados.append(i)
     else: vetorNormalizado.append(usuarioCorrente[i] - valorMediaAvaliacao)
     
-#aplicacao dos pesos produto do vetorNormalizado do Ususário pelo vetorem de cada Feature
+#aplicacao dos pesos,  produto do vetor do Ususário pelo vetor de cada Feature
 vetorPesosUsuarioCorrente = []
 totalItemFeature = 0
 valor = 0
@@ -355,6 +355,7 @@ for j in range(20):
     totalItemFeature = 0
     valor = 0
     for i in range((len(resultado))):
+        #seleciona os artigos não avaliados
         if i not in (vetorItemNaoAvaliados):
             valor = valor + (vetorNormalizado[i] * resultado[i][j])
             totalItemFeature = totalItemFeature + resultado[i][j]
@@ -362,9 +363,10 @@ for j in range(20):
     vetorPesosUsuarioCorrente.append(valor/totalItemFeature)
     
     
-#calculo da similaridade
+#calculo da similaridade do cosseno
 matrizSimilaridade = []
 titulos = []
+#inicia o calculo da similaridade  iterando o vetor dos artigo não avaliados pelo usuário corrente.
 for item in vetorItemNaoAvaliados:
     produto = 0
     somaquadArtigoSugerido = 0
@@ -376,11 +378,13 @@ for item in vetorItemNaoAvaliados:
         #calcula a soma dos quadrados de cada vetor
         somaquadArtigoSugerido = somaquadArtigoSugerido + (resultado[item][i])**2
         somaquadUsuario = somaquadUsuario + (vetorPesosUsuarioCorrente[i])**2
-    #calcula a formula do cosseno    
+    #calcula a formula da similaridade do cosseno    
     similaridade = (produto/ (sqrt(somaquadArtigoSugerido) * sqrt(somaquadUsuario) ))
+    #insere o valor no vetor de similaridades
     matrizSimilaridade.append([item, similaridade, tituloArtigos[item]])
     
 #ordena a matriz descrescente  
+#quanto maior o valor da similidade do cosseno maior é a aproximação do item ao usuário e menor é o angulo.
 matrizSimilaridade.sort(key=lambda x: x[1],reverse=True) 
 print(matrizSimilaridade)
 
